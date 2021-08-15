@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotFoundError } from 'rxjs';
+import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
 
 @Injectable()
 export class JogadoresService {
@@ -26,10 +27,10 @@ export class JogadoresService {
         return await jogadorCriado.save()
     }
 
-    async atualizarJogador(_id: string, criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    async atualizarJogador(_id: string, atualizarJogadorDto: AtualizarJogadorDto): Promise<Jogador> {
         await this.playerExists(_id)
 
-        return await this.jogadorModel.findByIdAndUpdate(_id, { $set: criarJogadorDto }, {new: true})
+        return await this.jogadorModel.findByIdAndUpdate(_id, { $set: atualizarJogadorDto }, {new: true})
     }
 
     async consultarTodosJogadores(): Promise<Jogador[]> {
